@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService {
 //        postResponse.setDescription(newPost.getDescription());
 //        postResponse.setContent(newPost.getContent());
 //        return postResponse;
-        return mapToDTO(post);
+        return mapToDTO(newPost);
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.Set;
 @Data
 public class PostDto {
 
-    private long id;
+    private Long id;
 
     @NotEmpty
     @Size(min = 2, message = "Post title should have at least 2 characters")
