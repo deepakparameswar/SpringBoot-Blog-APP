@@ -6,6 +6,7 @@ import com.springboot.blog.payload.PostDto;
 import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.service.PostService;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,8 +20,11 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
-    public PostServiceImpl(PostRepository postRepository) {
+    private ModelMapper mapper;
+    public PostServiceImpl(PostRepository postRepository, ModelMapper modelMapper) {
+
         this.postRepository = postRepository;
+        this.mapper = modelMapper;
     }
 
     @Override
@@ -102,24 +106,38 @@ public class PostServiceImpl implements PostService {
 
     // Convert Entity into DTO
     private PostDto mapToDTO(Post post) {
-        PostDto postDto = new PostDto();
 
-        postDto.setId(post.getId());
-        postDto.setTitle(post.getTitle());
-        postDto.setContent(post.getContent());
-        postDto.setDescription(post.getDescription());
+//        OLD APPROACH:
 
-        return postDto;
+//        PostDto postDto = new PostDto();
+//
+//        postDto.setId(post.getId());
+//        postDto.setTitle(post.getTitle());
+//        postDto.setContent(post.getContent());
+//        postDto.setDescription(post.getDescription());
+
+//        return postDto;
+
+//        NEW APPROACH:
+
+        return mapper.map(post, PostDto.class);
     }
 
     // Convert DTO to entity
     private Post mapToEntity(PostDto postDto) {
-        Post post = new Post();
 
-        post.setTitle(postDto.getTitle());
-        post.setDescription(postDto.getDescription());
-        post.setContent(postDto.getContent());
+//        OLD APPROACH:
 
-        return post;
+//        Post post = new Post();
+//
+//        post.setTitle(postDto.getTitle());
+//        post.setDescription(postDto.getDescription());
+//        post.setContent(postDto.getContent());
+//        return post;
+
+
+//        NEW APPROACH:
+
+        return mapper.map(postDto, Post.class);
     }
 }
